@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Award, Calendar, ExternalLink, Verified } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 const Certificates = () => {
   const ref = useRef(null);
@@ -9,44 +9,54 @@ const Certificates = () => {
 
   const certificates = [
     {
-      title: "AWS Certified Solutions Architect",
-      issuer: "Amazon Web Services",
-      date: "2023",
-      credentialId: "AWS-SAA-2023-001",
-      description: "Expertise in designing and deploying scalable systems on AWS",
-      skills: ["AWS", "Cloud Architecture", "System Design"],
+      title: "A Guide to Machine Learning with Data Science",
+      issuer: "CipherSchools",
+      date: "Jul 2025",
+      credentialId: "CSW2025-12199",
+      description: "Introduction to machine learning concepts with real-world applications using Microsoft Power BI.",
+      skills: ["Machine Learning", "Data Science", "Microsoft Power BI"],
       verified: true,
-      link: "#"
+      link: "https://www.cipherschools.com/certificate/preview?id=687d61ad3eaa79325b2d2815",
     },
     {
-      title: "React Advanced Certification",
-      issuer: "Meta",
-      date: "2023",
-      credentialId: "META-REACT-2023-456",
-      description: "Advanced React patterns, performance optimization, and modern hooks",
-      skills: ["React", "JavaScript", "Performance"],
+      title: "Java Certificate",
+      issuer: "iamneo - An NIIT Venture",
+      date: "May 2025",
+      credentialId: "17Cg2ah4C21018A60BJ1",
+      description: "Java programming fundamentals and object-oriented design principles.",
+      skills: ["Java", "Object-Oriented Programming"],
       verified: true,
-      link: "#"
+      link: "https://lpucolab438.examly.io/certificate/U2FsdGVkX19Cs8xkN6jEaJhR4zWAUWt3KKk0L%2FW5dpM%3D",
     },
     {
-      title: "Full Stack Web Development",
+      title: "Cloud Computing",
+      issuer: "Indian Institute of Technology Kharagpur (NPTEL)",
+      date: "May 2025",
+      credentialId: "NPTEL25CS11S1437301956",
+      description: "Comprehensive course on cloud computing technologies, platforms, and services.",
+      skills: ["Cloud Computing", "IaaS", "PaaS", "SaaS"],
+      verified: true,
+      link: "https://internalapp.nptel.ac.in/NOC/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/NPTEL25CS11S143730195604239718.pdf",
+    },
+    {
+      title: "Responsive Web Design",
       issuer: "freeCodeCamp",
-      date: "2022",
-      credentialId: "FCC-FSWD-2022-789",
-      description: "Comprehensive full-stack development with modern technologies",
-      skills: ["Node.js", "MongoDB", "Express", "React"],
+      date: "Nov 2023",
+      credentialId: "", // 🔧 Optional: Add if available on freeCodeCamp dashboard
+      description: "Mastered responsive HTML and CSS for modern web design.",
+      skills: ["HTML", "CSS", "Responsive Design"],
       verified: true,
-      link: "#"
+      link: "https://www.freecodecamp.org/certification/abheeshakespere/responsive-web-design",
     },
     {
-      title: "Google Cloud Professional",
-      issuer: "Google Cloud",
-      date: "2023",
-      credentialId: "GCP-PRO-2023-101",
-      description: "Cloud infrastructure and application development on GCP",
-      skills: ["GCP", "Kubernetes", "DevOps"],
+      title: "Computer Communications",
+      issuer: "University of Colorado Colorado Springs",
+      date: "Aug 2024",
+      credentialId: "",
+      description: "Learned fundamentals of computer networks, protocols, and layered communication models.",
+      skills: ["Networking", "TCP/IP", "OSI Model"],
       verified: true,
-      link: "#"
+      link: "https://www.coursera.org/account/accomplishments/specialization/QGXK8I357ABA",
     }
   ];
 
@@ -170,15 +180,29 @@ const Certificates = () => {
 
                     {/* Action Buttons */}
                     <div className="flex gap-3">
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="group/btn"
-                        onClick={() => window.open(cert.link, '_blank')}
-                      >
-                        <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:animate-pulse" />
-                        Verify Certificate
-                      </Button>
+                      {cert.link && cert.link.trim() !== "" ? (
+                        <a
+                          href={cert.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={buttonVariants({ variant: "outline", size: "sm", className: "group/btn" })}
+                          style={{ display: "inline-flex", alignItems: "center" }}
+                        >
+                          <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:animate-pulse" />
+                          Verify Certificate
+                        </a>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="group/btn"
+                          disabled
+                          title="No verification link available for this certificate."
+                        >
+                          <ExternalLink className="h-4 w-4 mr-2 group-hover/btn:animate-pulse" />
+                          Verify Certificate
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </div>

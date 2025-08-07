@@ -22,16 +22,35 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
-      setFormData({ name: "", email: "", message: "" });
+      if (res.ok) {
+        toast({
+          title: 'Message sent!',
+          description: "Thanks for reaching out. I'll get back to you soon.",
+        });
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        const data = await res.json();
+        toast({
+          title: 'Error',
+          description: data.error || 'Something went wrong.',
+          variant: 'destructive',
+        });
+      }
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send message.',
+        variant: 'destructive',
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
