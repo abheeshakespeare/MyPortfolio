@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-
+import emailjs from '@emailjs/browser';
 
 
 const Contact = () => {
@@ -23,29 +23,34 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      if (res.ok) {
-        toast({
-          title: 'Message sent!',
-          description: "Thanks for reaching out. I'll get back to you soon.",
-        });
-        setFormData({ name: '', email: '', message: '' });
-      } else {
-        const data = await res.json();
-        toast({
-          title: 'Error',
-          description: data.error || 'Something went wrong.',
-          variant: 'destructive',
-        });
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS environment variables are not set.');
       }
-    } catch (err) {
+      const res = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          name: formData.name,
+          from_email: formData.email,
+          email: formData.email,
+          reply_to: formData.email,
+          message: formData.message,
+        },
+        publicKey
+      );
+      toast({
+        title: 'Message sent!',
+        description: "Thanks for reaching out. I'll get back to you soon.",
+      });
+      setFormData({ name: '', email: '', message: '' });
+    } catch (err: any) {
       toast({
         title: 'Error',
-        description: 'Failed to send message.',
+        description: err.message || 'Failed to send message.',
         variant: 'destructive',
       });
     } finally {
