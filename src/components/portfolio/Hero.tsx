@@ -180,24 +180,26 @@ const Hero = () => {
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <a href="#contact">
-              <Button className="hover-glow group">
-                <Mail className="mr-2 h-4 w-4 group-hover:animate-pulse" />
-                Get In Touch
-              </Button>
-            </a>
-            <a href="/MyResume.pdf" download>
-              <Button variant="outline" className="hover-glow group">
-              <Download className="mr-2 h-4 w-4 group-hover:animate-pulse" />
-              Download Resume
-              </Button>
-            </a>
-          </motion.div>
+  className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.6 }}
+>
+  <a href="#contact">
+    <Button className="hover-glow group">
+      <Mail className="mr-2 h-4 w-4 group-hover:animate-pulse" />
+      Get In Touch
+    </Button>
+  </a>
+  
+  <a href="/MyResume.pdf" target="_blank" rel="noopener noreferrer">
+    <Button variant="outline" className="hover-glow group">
+      <Download className="mr-2 h-4 w-4 group-hover:animate-pulse" />
+      View Resume
+    </Button>
+  </a>
+</motion.div>
+
 
           {/* Social Links */}
           <motion.div
