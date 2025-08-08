@@ -1,14 +1,11 @@
-User-agent: Googlebot
-Allow: /
+User-agent: Googlebot Allow: / Crawl-delay: 10
 
-User-agent: Bingbot
-Allow: /
+User-agent: Bingbot Allow: / Crawl-delay: 10
 
-User-agent: Twitterbot
-Allow: /
+User-agent: Twitterbot Allow: / Crawl-delay: 10
 
-User-agent: facebookexternalhit
-Allow: /
+User-agent: facebookexternalhit Allow: / Crawl-delay: 10
 
-User-agent: *
-Allow: /
+User-agent: * Allow: / Crawl-delay: 10
+
+Sitemap: https://abhishekmishra.me/sitemap.xml
